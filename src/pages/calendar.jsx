@@ -33,7 +33,7 @@ export default function Calendar() {
     <div className = 'calendar-app'>
       <div className = 'calendar'> 
         
-        <h1 className = 'heading'> Calendar 2026 </h1>
+        <h1 className = 'heading'> Calendar {currentYear} </h1>
 
         <div className = 'navigate'>
           <h2 className = 'month'> {monthsInYear[currentMonth]}, </h2>

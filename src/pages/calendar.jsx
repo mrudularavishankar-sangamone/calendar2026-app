@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 export default function Calendar() {
-
+  
+  const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
   return (
     <div className = 'calendar-app'>
@@ -20,13 +21,9 @@ export default function Calendar() {
         </div>
       
         <div className = 'weekdays'>
-          <span> SUN </span>
-          <span> MON </span>
-          <span> TUE </span>
-          <span> WED </span>
-          <span> THU </span>
-          <span> FRI </span>
-          <span> SAT </span>
+          {daysOfWeek.map((day) => (
+            <span key = {day}> {day} </span>
+          ))}
         </div>
 
         <div className = 'days'>

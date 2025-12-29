@@ -25,6 +25,9 @@ export default function Calendar() {
     setCurrentYear((prevYear) => (currentMonth === 11 ? prevYear + 1 : prevYear));
   }
 
+  const isCurrent = (day) => {
+    return (day + 1 === currentDate.getDate() && currentMonth === currentDate.getMonth() && currentYear === currentDate.getFullYear()) ? 'current-day' : '';
+  }
 
   return (
     <div className = 'calendar-app'>
@@ -52,7 +55,7 @@ export default function Calendar() {
           {[...Array(firstDayOfMonth).keys()].map((_, index) =>
           (<span key = {`empty-${index}`}></span>))}
           {[...Array(daysInMonth).keys()].map((day) => 
-          (<span key = {day + 1}> {day + 1} </span>))}
+          (<span key = {day + 1} className = {isCurrent(day)}> {day + 1} </span>))}
         </div>
 
       </div>

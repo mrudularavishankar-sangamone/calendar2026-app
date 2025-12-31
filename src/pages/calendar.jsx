@@ -4,7 +4,7 @@ export default function Calendar() {
   
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-   const monthsInYear = [
+  const monthsInYear = [
     'January', 'February', 'March', 'April', 'May', 'June', 
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
@@ -15,18 +15,50 @@ export default function Calendar() {
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
 
-  const previous = () => {
-    setCurrentMonth((prevMonth) => (prevMonth === 0 ? 11 : prevMonth - 1));
-    setCurrentYear((prevYear) => (currentMonth === 0 ? prevYear - 1 : prevYear));
-  }
-  
-  const next = () => {
-    setCurrentMonth((prevMonth) => (prevMonth === 11 ? 0 : prevMonth + 1));
-    setCurrentYear((prevYear) => (currentMonth === 11 ? prevYear + 1 : prevYear));
+  function renderEmptySpaces() {
+    let items = [];
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      items.push(<span key={i}> </span>);
+    }
+    return items;
   }
 
-  const isCurrent = (day) => {
-    return (day + 1 === currentDate.getDate() && currentMonth === currentDate.getMonth() && currentYear === currentDate.getFullYear()) ? 'current-day' : '';
+  function renderDates() {
+    let items = [];
+    for (let i = 1; i <= daysInMonth; i++) {
+      items.push(
+        <span key={i} className = {isCurrent(i)}> {i}{" "} </span>
+      );
+    }
+    console.log(items);
+    return items;
+  }
+
+  function previous() {
+    if(currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    } else {
+      setCurrentMonth(currentMonth - 1);
+    }
+  }
+  
+  function next() {
+    if(currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
+    } else {
+      setCurrentMonth(currentMonth + 1);
+    }
+  }
+
+  function isCurrent(day){
+    if(day === currentDate.getDate() && currentMonth === currentDate.getMonth() && currentYear === currentDate.getFullYear()){
+      return 'current-day';
+    }
+    else {
+      return '';
+    }
   }
 
   return (
@@ -52,10 +84,8 @@ export default function Calendar() {
         </div>
 
         <div className = 'days'>
-          {[...Array(firstDayOfMonth).keys()].map((_, index) =>
-          (<span key = {`empty-${index}`}></span>))}
-          {[...Array(daysInMonth).keys()].map((day) => 
-          (<span key = {day + 1} className = {isCurrent(day)}> {day + 1} </span>))}
+          {renderEmptySpaces()}
+          {renderDates()}
         </div>
 
       </div>
